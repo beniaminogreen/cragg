@@ -5,20 +5,19 @@ An R package to implement the Cragg-Donald test for weak instruments.
 
 ## Overview
 
-Cragg is an R package to implement the
-[Cragg-Donald](https://doi.org/10.1017/S0266466600007519) test for weak
-instruments, using critical values from [Stock and
-Yogo](https://ssrn.com/abstract=1734933). These tests quantify the
-degree to which weak instruments can undermine regression estimates for
-models with multiple endogenous variables / treatments.
+Cragg is an R package to implement the Cragg-Donald
+([1993](#ref-Cragg_1993)) test for weak instruments, using critical
+values from Stock and Yogo ([2005](#ref-Stock_2005)). These tests
+quantify the degree to which weak instruments can undermine regression
+estimates for models with multiple endogenous variables / treatments.
 
 ### Main Features
 
 -   Calculates Cragg-Donald statistics for weak instruments.
 
 -   Recommends critical values for the Cragg-Donald Statistic based on
-    the largest allowable bias relative to regular OLS or maximum Wald
-    test size distortion.
+    the largest allowable bias relative to regular OLS or the maximum
+    allowable size distortion of the Wald test.
 
 ## Installation
 
@@ -30,11 +29,12 @@ devtools::install_github("beniaminogreen/cragg")
 ## Usage
 
 The cragg package has two main functions `cragg_donald()`, and
-`stock_yogo_test()` \_\_\_\_\_\_ `cragg_donald()` implements the
-Cragg-Donald test for weak instruments in R. It can be thought of as the
-matrix-equivalent of the first-stage F-test for weak instruments, and is
-used to evaluate models with multiple endogenous variables. The syntax
-is show below:
+`stock_yogo_test()`.
+
+`cragg_donald()` implements the Cragg-Donald test for weak instruments
+in R. It can be thought of as the matrix-equivalent of the first-stage
+F-test for weak instruments, and is used to evaluate models with
+multiple endogenous variables. The syntax is show below:
 
 ``` r
 library(cragg)
@@ -57,7 +57,8 @@ cragg_donald(
 ```
 
 `stock_yogo_test()` implements the Stock and Yogo test for weak
-instruments. This test is based off the Cragg-Donald statistic, and
+instruments. The Stock and Yogo test is based on a set of critical
+values for the Cragg-Donalds statistic based on the null hypothesis
 
 ``` r
 stock_yogo_test(
@@ -86,3 +87,26 @@ stock_yogo_test(
 #>      Cragg-Donald Statistic:        204.3325 
 #>      Df:                                 994
 ```
+
+# References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-Cragg_1993" class="csl-entry">
+
+Cragg, John G., and Stephen G. Donald. 1993. “Testing Identifiability
+and Specification in Instrumental Variable Models.” *Econometric Theory*
+9 (2): 222–40. <https://doi.org/10.1017/s0266466600007519>.
+
+</div>
+
+<div id="ref-Stock_2005" class="csl-entry">
+
+Stock, James H., and Motohiro Yogo. 2005. “Testing for Weak Instruments
+in Linear IV Regression.” In *Identification and Inference for
+Econometric Models*, 80–108. Cambridge University Press.
+<https://doi.org/10.1017/cbo9780511614491.006>.
+
+</div>
+
+</div>
