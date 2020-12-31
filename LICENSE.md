@@ -1,7 +1,7 @@
 GNU General Public License
 ==========================
 
-_Version 3, 29 June 2007_  
+_Version 3, 29 June 2007_
 _Copyright © 2007 Free Software Foundation, Inc. &lt;<http://fsf.org/>&gt;_
 
 Everyone is permitted to copy and distribute verbatim copies of this license
@@ -91,8 +91,7 @@ copy. Propagation includes copying, distribution (with or without modification),
 making available to the public, and in some countries other activities as well.
 
 To “convey” a work means any kind of propagation that enables other
-parties to make or receive copies. Mere interaction with a user through a computer
-network, with no transfer of a copy, is not conveying.
+parties to make or receive copies. Mere interaction with a user through a computer network, with no transfer of a copy, is not conveying.
 
 An interactive user interface displays “Appropriate Legal Notices” to the
 extent that it includes a convenient and prominently visible feature that **(1)**

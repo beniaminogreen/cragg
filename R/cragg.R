@@ -1,32 +1,60 @@
 #' Calculate the Cragg-Donald statistic for a given model.
-#' @param X formula of control variables
-#' @param Y fromula of treatment variable
-#' @param Z formula of instrumental variables
-#' @return The Cragg-Donald Statistic from the specified model
+#'
+#' @param X (formula). A one-sided formula of control variables.
+#' @param Y (formula). A one-sided formula of endoenous variables (treatments)
+#' @param Z (formula). A one-sided formula of instruments
+#' @param Z (dataframe). An optional dataframe, list, or environment
+#' containing the variables used in the model. As with many of the base R
+#' functions, if the variables are not found here, they may be searched for in
+#' the environment cragg_donald() was called.
+#'
+#' @return (cd_test) results object of class "cd_test"
+#'
+#' @examples
+#' cragg_donald(
+#'		X = ~ control_1 + control_2 + control_3,
+#'		Y = ~ treatment_1 + treatment_2,
+#'		Z = ~ instrument_1 + instrument_2, instrument_3,
+#'		data = dataframe
+#' )
+#'
 #' @export
-cragg_donald <- function(X,Y,Z,data_fr) {
-	X <- model.matrix(X, data_fr)
-	Y <- model.matrix(Y, data_fr)[,-1]
-	Z <- model.matrix(Z, data_fr)[,-1]
+cragg_donald <- function(X,Y,Z,data=data.frame()) {
 
-	Z_ <- cbind(X,Z)
+	X_m <- model.matrix(X, data)
+	Y_m <- model.matrix(Y, data)[,-1]
+	Z_m <- model.matrix(Z, data)[,-1]
 
-	Mx <- diag(nrow(X)) - X %*% solve(t(X) %*% X) %*%t(X)
+	Z_ <- cbind(X_m,Z_m)
 
-	YT <- Mx %*% Y
+	Mx <- diag(nrow(X_m)) - X_m %*% solve(t(X_m) %*% X_m) %*%t(X_m)
 
-	ZT <- Mx %*% Z
+	YT <- Mx %*% Y_m
+
+	ZT <- Mx %*% Z_m
 	PZT <- ZT %*% solve(t(ZT) %*% ZT ) %*% t(ZT)
 	Mz_<-diag(nrow(Z_)) - Z_ %*% solve(t(Z_) %*% Z_) %*%t(Z_)
 
-	T <- nrow(X)
-	K1 <- ncol(X)
-	K2 <- ncol(Z)
+	T <- nrow(X_m)
+	K1 <- ncol(X_m)
+	K2 <- ncol(Z_m)
+	N <- ncol(Y_m)
 
-	Sig_hat_vv<-(t(Y) %*% Mz_ %*% Y) / (T - K1 - K2)
+	Sig_hat_vv<-(t(Y_m) %*% Mz_ %*% Y_m) / (T - K1 - K2)
 
 	fstat_matrix <- (solve(Sig_hat_vv)**.5 %*% t(YT) %*% PZT %*% YT %*% solve(Sig_hat_vv)**.5)/K2
 
-	min(eigen(fstat_matrix)$values)
+	cd_stat <- min(eigen(fstat_matrix)$values)
+	df <- T - K1 - K2
+
+	RVAL <- list(cd_stat = cd_stat,
+		df = df,
+		X=X,Y=Y,Z=Z,
+		K1=K1, K2=K2, N=N,
+		data=deparse(substitute(data))
+	)
+	class(RVAL) <- "cd_test"
+
+	RVAL
 }
 

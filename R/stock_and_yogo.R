@@ -1,4 +1,27 @@
 #' @export
+stock_yogo_test <- function(X,Y,Z,data,B=.1,size_bias="bias"){
+	cd <- cragg_donald(X,Y,Z,data)
+
+	RVAL <- cd
+	RVAL <- c(RVAL, list(B=B, data=deparse(substitute(data)), crit_val = stock_yogo_reccomender(cd$K2,2,B,size_bias),
+	size_bias = size_bias))
+	class(RVAL)<- "sy_test"
+
+	RVAL
+}
+
+#' Recommend a critical value for the Cragg-Donald test given a maximum allowable bias/size distortion
+#'
+#' @param B One of \[.05, .1, .15, .2, .25, .3\]. The maximum size of allowable bias relative
+#' to the normal OLS or the maximum Wald test size distortion.
+#' @param N (int).  The number of endogenous variables (treatments)
+#' @param K (int). The number of instruments.
+#' @param size_bias One of ["bias", "size"]. Whether to use a critical
+#' value based on the maximum allowable bias relative to regular OLS (bias), or maximum
+#' Wald test size distortion.
+#' @return (float) the recommended critical value.
+#'
+#' @export
 stock_yogo_reccomender <- function(K,N,B,size_bias) {
 	size_bias %in% c("bias", "size") ||
 		stop("size / bias must be specified")

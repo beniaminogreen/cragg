@@ -4,18 +4,30 @@
 \alias{cragg_donald}
 \title{Calculate the Cragg-Donald statistic for a given model.}
 \usage{
-cragg_donald(X, Y, Z, data_fr)
+cragg_donald(X, Y, Z, data = data.frame())
 }
 \arguments{
-\item{X}{formula of control variables}
+\item{X}{(formula). A one-sided formula of control variables.}
 
-\item{Y}{fromula of treatment variable}
+\item{Y}{(formula). A one-sided formula of endoenous variables (treatments)}
 
-\item{Z}{formula of instrumental variables}
+\item{Z}{(dataframe). An optional dataframe, list, or environment
+containing the variables used in the model. As with many of the base R
+functions, if the variables are not found here, they may be searched for in
+the environment cragg_donald() was called.}
 }
 \value{
-The Cragg-Donald Statistic from the specified model
+(float) The Cragg-Donald Statistic from the specified model
 }
 \description{
 Calculate the Cragg-Donald statistic for a given model.
+}
+\examples{
+cragg_donald(
+	X = ~ control_1 + control_2 + control_3,
+	Y = ~ treatment_1 + treatment_2,
+	Z = ~ instrument_1 + instrument_2, instrument_3,
+	data = dataframe
+)
+
 }
