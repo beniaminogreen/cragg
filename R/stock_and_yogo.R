@@ -1,9 +1,9 @@
 #' @export
 stock_yogo_test <- function(X,Y,Z,data,B=.05,size_bias="bias"){
 	cd <- cragg_donald(X,Y,Z,data)
-	RVAL <- cd
-	RVAL <- c(RVAL, list(B=B, data=deparse(substitute(data)), crit_val = stock_yogo_reccomender(K=cd$K2,N=cd$N,B,size_bias),
+	RVAL <- c(cd, list(B=B, crit_val = stock_yogo_reccomender(K=cd$K2,N=cd$N,B,size_bias),
 	size_bias = size_bias))
+	RVAL$data <- deparse(substitute(data))
 	class(RVAL)<- "sy_test"
 
 	RVAL

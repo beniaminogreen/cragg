@@ -5,8 +5,18 @@ An R package to implement the Cragg-Donald test for weak instruments.
 
 ## Overview
 
-Cragg is an R package to implement the Cragg-Donald tests for weak
-instruments, using critical values provided by Stock and Yogo (2005).
+Cragg is an R package to implement the
+[Cragg-Donald](https://doi.org/10.1017/S0266466600007519) test for weak
+instruments, using critical values from [Stock and
+Yogo](https://ssrn.com/abstract=1734933).
+
+### Main Features
+
+-   Calculates Cragg-Donald staistics for weak instruments.
+
+-   Reccomends critical values for the Cragg-Donald Statistic based on
+    the largest allowable bias relative to regular OLS or maximum Wald
+    test size distortion.
 
 ## Installation
 
