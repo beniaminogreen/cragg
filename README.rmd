@@ -32,6 +32,13 @@ devtools::install_github("beniaminogreen/cragg")
 ```
 
 ## Usage
+The cragg package has two main functions `cragg_donald()`,  and `stock_yogo_test()`
+______
+`cragg_donald()` implements the Cragg-Donald test for weak instruments in R. It can be thought of
+as the matrix-equivalent of the first-stage F-test for weak instruments, and is used to evaluate models
+with multiple endogenous variables.
+The syntax is show below:
+
 ```{r}
 library(cragg)
 #Cragg-Donald Test
@@ -41,7 +48,10 @@ cragg_donald(
 	~Z1 + Z2,	#Instruments
 	data =example_data
 )
+```
+`stock_yogo_test()` implements the Stock and Yogo test for weak instruments.
 
+```{r}
 stock_yogo_test(
 	~X1+X2+X3,	#Controls
 	~D,			#Treatments
