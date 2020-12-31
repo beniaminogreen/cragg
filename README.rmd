@@ -1,0 +1,46 @@
+---
+output: github_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+example_data <- read.csv("tests/testthat/test-data/data_1.csv")
+```
+
+# Cragg
+An R package to implement the Cragg-Donald test for weak instruments.
+
+## Overview
+Cragg is an R package to implement the Cragg-Donald tests for weak instruments, using critical values provided by Stock and Yogo (2005).
+
+## Installation
+```{r, eval = FALSE}
+#install.packages("devtools")
+devtools::install_github("beniaminogreen/cragg")
+```
+
+
+## Usage
+```{r}
+library(cragg)
+#Cragg-Donald Test
+cragg_donald(
+	~X1+X2+X3,	#Controls
+	~D,			#Treatments
+	~Z1 + Z2,	#Instruments
+	data =example_data
+)
+
+stock_yogo_test(
+	~X1+X2+X3,	#Controls
+	~D,			#Treatments
+	~Z1 + Z2,	#Instruments
+	data =example_data
+)
+```
+

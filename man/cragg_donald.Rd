@@ -17,7 +17,7 @@ functions, if the variables are not found here, they may be searched for in
 the environment cragg_donald() was called.}
 }
 \value{
-(float) The Cragg-Donald Statistic from the specified model
+(cd_test) results object of class "cd_test"
 }
 \description{
 Calculate the Cragg-Donald statistic for a given model.

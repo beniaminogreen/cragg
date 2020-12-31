@@ -57,4 +57,3 @@ cragg_donald <- function(X,Y,Z,data=data.frame()) {
 
 	RVAL
 }
-
