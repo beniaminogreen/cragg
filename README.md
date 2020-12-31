@@ -28,35 +28,37 @@ cragg_donald(
 )
 #> Cragg-Donald test for weak instruments:
 #> 
-#>  data:       example_data
-#>  Controls:           X1 + X2 + X3
-#>  Treatments:         D
-#>  Instruments:            Z1 + Z2
+#>      Data:                        example_data 
+#>      Controls:                    ~X1 + X2 + X3 
+#>      Treatments:                  ~D 
+#>      Instruments:                 ~Z1 + Z2 
 #> 
-#>  Cragg-Donald Statistic:     204.333
-#>  Df:             994
+#>      Cragg-Donald Statistic:        204.3325 
+#>      Df:                                 994
 
 stock_yogo_test(
     ~X1+X2+X3,  #Controls
     ~D,         #Treatments
     ~Z1 + Z2,   #Instruments
+    B=.1,
+    size_bias="size",
     data =example_data
 )
 #> Results of Stock and Yogo test for weak instruments:
 #> 
-#>  Null Hypothesis:        Instruments are weak.
-#>  Alternative Hypothesis:     Instruments are not weak.
+#>      Null Hypothesis:             Instruments are weak 
+#>      Alternative Hypothesis:      Instruments are not weak 
 #> 
 #> 
-#>  data:               data
-#>  Controls:           X1 + X2 + X3
-#>  Treatments:         D
-#>  Instruments:            Z1 + Z2
+#>      Data:                        data       
+#>      Controls:                    ~X1 + X2 + X3 
+#>      Treatments:                  ~D 
+#>      Instruments:                 ~Z1 + Z2 
 #> 
-#>  Alpha:              0.05
-#>  Acceptable level of bias:   10% relative to OLS.
-#>  Critical Value:         
+#>      Alpha:                             0.05 
+#>      Acceptable level of bias:    10% Wald test distortion.
+#>      Critical Value:                   19.93 
 #> 
-#>  Df:             994
-#>  Cragg-Donald Statistic:     204.332509580491
+#>      Cragg-Donald Statistic:        204.3325 
+#>      Df:                                 994
 ```

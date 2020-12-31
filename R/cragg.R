@@ -21,9 +21,9 @@
 #' @export
 cragg_donald <- function(X,Y,Z,data=data.frame()) {
 
-	X_m <- model.matrix(X, data)
-	Y_m <- model.matrix(Y, data)[,-1]
-	Z_m <- model.matrix(Z, data)[,-1]
+	X_m <- as.matrix(model.matrix(X, data))
+	Y_m <- as.matrix(model.matrix(Y, data)[,-1])
+	Z_m <- as.matrix(model.matrix(Z, data)[,-1])
 
 	Z_ <- cbind(X_m,Z_m)
 

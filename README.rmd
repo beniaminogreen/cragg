@@ -40,6 +40,8 @@ stock_yogo_test(
 	~X1+X2+X3,	#Controls
 	~D,			#Treatments
 	~Z1 + Z2,	#Instruments
+	B=.1,
+	size_bias="size",
 	data =example_data
 )
 ```
