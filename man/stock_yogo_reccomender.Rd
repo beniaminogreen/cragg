@@ -14,7 +14,7 @@ stock_yogo_reccomender(K, N, B, size_bias)
 \item{B}{One of [.05, .1, .15, .2, .25, .3]. The maximum size of allowable bias relative
 to the normal OLS or the maximum Wald test size distortion.}
 
-\item{size_bias}{One of \link{"bias", "size"}. Whether to use a critical
+\item{size_bias}{Either "bias" or "size". Whether to use a critical
 value based on the maximum allowable bias relative to regular OLS (bias), or maximum
 Wald test size distortion.}
 }

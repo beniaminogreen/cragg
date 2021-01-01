@@ -11,7 +11,9 @@ cragg_donald(X, Y, Z, data = data.frame())
 
 \item{Y}{(formula). A one-sided formula of endoenous variables (treatments)}
 
-\item{Z}{(dataframe). An optional dataframe, list, or environment
+\item{Z}{(formula). A one-sided formula of instruments}
+
+\item{data}{(dataframe). An optional dataframe, list, or environment
 containing the variables used in the model. As with many of the base R
 functions, if the variables are not found here, they may be searched for in
 the environment cragg_donald() was called.}
@@ -21,13 +23,4 @@ the environment cragg_donald() was called.}
 }
 \description{
 Calculate the Cragg-Donald statistic for a given model.
-}
-\examples{
-cragg_donald(
-	X = ~ control_1 + control_2 + control_3,
-	Y = ~ treatment_1 + treatment_2,
-	Z = ~ instrument_1 + instrument_2, instrument_3,
-	data = dataframe
-)
-
 }

@@ -7,49 +7,49 @@ statprint <- function (statname,stat) {
 }
 
 #' @export
-print.cd_test <- function (cd_test) {
+print.cd_test <- function (x,...) {
 	cat("Cragg-Donald test for weak instruments:\n\n")
 
-	statprint("Data:",cd_test$data )
-	statprint("Controls:",cd_test$X )
-	statprint("Treatments:",cd_test$Y )
-	statprint("Instruments:",cd_test$Z )
+	statprint("Data:",x$data )
+	statprint("Controls:",x$X )
+	statprint("Treatments:",x$Y )
+	statprint("Instruments:",x$Z )
 	cat("\n")
-	statprint("Cragg-Donald Statistic:",cd_test$cd_stat )
-	statprint("Df:",cd_test$df)
+	statprint("Cragg-Donald Statistic:",x$cd_stat )
+	statprint("Df:",x$df)
 }
 
 #' @export
-print.sy_test <-function(sy_test) {
-	sy_test$B=100*sy_test$B
+print.sy_test <-function(x,...) {
+	x$B=100*x$B
 	cat("Results of Stock and Yogo test for weak instruments:\n\n")
 	statprint("Null Hypothesis:", "Instruments are weak")
 	statprint("Alternative Hypothesis:", "Instruments are not weak")
 	cat("\n\n")
 
-	statprint("Data:",sy_test$data )
-	statprint("Controls:",sy_test$X )
-	statprint("Treatments:",sy_test$Y )
-	statprint("Instruments:",sy_test$Z )
+	statprint("Data:",x$data )
+	statprint("Controls:",x$X )
+	statprint("Treatments:",x$Y )
+	statprint("Instruments:",x$Z )
 	cat("\n")
 
 	statprint("Alpha:", .05)
-	if (sy_test$size_bias == "bias") {
+	if (x$size_bias == "bias") {
 		cat(
 			format("",width=4),
 			format("Acceptable level of bias:", width=28),
-			format(paste0(sy_test$B,"% relative to OLS.\n"))
+			format(paste0(x$B,"% relative to OLS.\n"))
 			)
 	} else {
 		cat(
 			format("",width=4),
 			format("Acceptable level of bias:", width=28),
-			format(paste0(sy_test$B,"% Wald test distortion.\n"))
+			format(paste0(x$B,"% Wald test distortion.\n"))
 			)
 	}
 
-	statprint("Critical Value:",sy_test$crit_val)
+	statprint("Critical Value:",x$crit_val)
 	cat("\n")
-	statprint("Cragg-Donald Statistic:",sy_test$cd_stat )
-	statprint("Df:",sy_test$df)
+	statprint("Cragg-Donald Statistic:",x$cd_stat )
+	statprint("Df:",x$df)
 }

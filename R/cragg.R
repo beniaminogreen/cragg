@@ -10,20 +10,20 @@
 #'
 #' @return (cd_test) results object of class "cd_test"
 #'
-#' @examples
-#' cragg_donald(
-#'		X = ~ control_1 + control_2 + control_3,
-#'		Y = ~ treatment_1 + treatment_2,
-#'		Z = ~ instrument_1 + instrument_2, instrument_3,
-#'		data = dataframe
-#' )
 #'
+# cragg_donald(
+#		X = ~ control_1 + control_2 + control_3,
+#		Y = ~ treatment_1 + treatment_2,
+#		Z = ~ instrument_1 + instrument_2 + instrument_3,
+#		data = dataframe
+# )
+#
 #' @export
 cragg_donald <- function(X,Y,Z,data=data.frame()) {
 
-	X_m <- as.matrix(model.matrix(X, data))
-	Y_m <- as.matrix(model.matrix(Y, data)[,-1])
-	Z_m <- as.matrix(model.matrix(Z, data)[,-1])
+	X_m <- as.matrix(stats::model.matrix(X, data))
+	Y_m <- as.matrix(stats::model.matrix(Y, data)[,-1])
+	Z_m <- as.matrix(stats::model.matrix(Z, data)[,-1])
 
 	Z_ <- cbind(X_m,Z_m)
 

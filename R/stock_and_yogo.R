@@ -8,7 +8,7 @@
 #' functions, if the variables are not found here, they may be searched for in
 #' the environment cragg_donald() was called.
 #' @param B One of \[.05, .1, .15, .2, .25, .3\]. The maximum size of allowable bias relative
-#' @param size_bias One of ["bias", "size"]. Whether to use a critical
+#' @param size_bias Either "bias" or "size". Whether to use a critical
 #' value based on the maximum allowable bias relative to regular OLS (bias), or maximum
 #' Wald test size distortion.
 #' @return (float) the recommended critical value.
@@ -30,7 +30,7 @@ stock_yogo_test <- function(X,Y,Z,data,B=.05,size_bias="bias"){
 #' to the normal OLS or the maximum Wald test size distortion.
 #' @param N (int).  The number of endogenous variables (treatments)
 #' @param K (int). The number of instruments.
-#' @param size_bias One of ["bias", "size"]. Whether to use a critical
+#' @param size_bias Either "bias" or "size". Whether to use a critical
 #' value based on the maximum allowable bias relative to regular OLS (bias), or maximum
 #' Wald test size distortion.
 #' @return (float) the recommended critical value.
