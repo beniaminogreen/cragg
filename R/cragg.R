@@ -3,7 +3,7 @@
 #' @param X (formula). A one-sided formula of control variables.
 #' @param Y (formula). A one-sided formula of endoenous variables (treatments)
 #' @param Z (formula). A one-sided formula of instruments
-#' @param Z (dataframe). An optional dataframe, list, or environment
+#' @param data (dataframe). An optional dataframe, list, or environment
 #' containing the variables used in the model. As with many of the base R
 #' functions, if the variables are not found here, they may be searched for in
 #' the environment cragg_donald() was called.

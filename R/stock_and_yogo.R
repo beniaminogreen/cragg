@@ -1,3 +1,18 @@
+#' Perform the Stock and Yogo test for weak instruments
+#'
+#' @param X (formula). A one-sided formula of control variables.
+#' @param Y (formula). A one-sided formula of endoenous variables (treatments)
+#' @param Z (formula). A one-sided formula of instruments
+#' @param data (dataframe). An optional dataframe, list, or environment
+#' containing the variables used in the model. As with many of the base R
+#' functions, if the variables are not found here, they may be searched for in
+#' the environment cragg_donald() was called.
+#' @param B One of \[.05, .1, .15, .2, .25, .3\]. The maximum size of allowable bias relative
+#' @param size_bias One of ["bias", "size"]. Whether to use a critical
+#' value based on the maximum allowable bias relative to regular OLS (bias), or maximum
+#' Wald test size distortion.
+#' @return (float) the recommended critical value.
+#'
 #' @export
 stock_yogo_test <- function(X,Y,Z,data,B=.05,size_bias="bias"){
 	cd <- cragg_donald(X,Y,Z,data)

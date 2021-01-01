@@ -3,6 +3,9 @@
 
 An R package to implement the Cragg-Donald test for weak instruments.
 
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-3.0.en.html)
+
 ## Overview
 
 Cragg is an R package to implement the Cragg-Donald
@@ -17,7 +20,7 @@ estimates for models with multiple endogenous variables / treatments.
 
 -   Recommends critical values for the Cragg-Donald Statistic based on
     the largest allowable bias relative to regular OLS or the maximum
-    allowable size distortion of the Wald test.
+    allowable size distortion of the Wald test statistic.
 
 ## Installation
 
@@ -34,7 +37,9 @@ The cragg package has two main functions `cragg_donald()`, and
 `cragg_donald()` implements the Cragg-Donald test for weak instruments
 in R. It can be thought of as the matrix-equivalent of the first-stage
 F-test for weak instruments, and is used to evaluate models with
-multiple endogenous variables. The syntax is show below:
+multiple endogenous variables. This function has been tested against the
+results from STATA’s ivreg2 package ([Baum, Schaffer, and Stillman
+2002](#ref-ivreg2)) to ensure accuracy. The syntax is show below:
 
 ``` r
 library(cragg)
@@ -57,8 +62,12 @@ cragg_donald(
 ```
 
 `stock_yogo_test()` implements the Stock and Yogo test for weak
-instruments. The Stock and Yogo test is based on a set of critical
-values for the Cragg-Donalds statistic based on the null hypothesis
+instruments. The test developed by Stock and Yogo
+([2005](#ref-Stock_2005)) is a decision rule meant to ensure that weak
+instruments do not pose a problem. Stock and Yogo suggest two methods to
+select the critical values: one based on maximum allowable bias relative
+to normal OLS and another based on the maximum size of a Wald test on
+all of the instruments. Both of these decision rules are implemented.
 
 ``` r
 stock_yogo_test(
@@ -75,7 +84,7 @@ stock_yogo_test(
 #>      Alternative Hypothesis:      Instruments are not weak 
 #> 
 #> 
-#>      Data:                        data       
+#>      Data:                        example_data 
 #>      Controls:                    ~X1 + X2 + X3 
 #>      Treatments:                  ~D 
 #>      Instruments:                 ~Z1 + Z2 
@@ -91,6 +100,15 @@ stock_yogo_test(
 # References
 
 <div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-ivreg2" class="csl-entry">
+
+Baum, Christopher F, Mark E Schaffer, and Steven Stillman. 2002. “<span
+class="nocase">IVREG2: Stata module for extended instrumental
+variables/2SLS and GMM estimation</span>.” Statistical Software
+Components, Boston College Department of Economics.
+
+</div>
 
 <div id="ref-Cragg_1993" class="csl-entry">
 
