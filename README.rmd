@@ -11,7 +11,27 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-example_data <- read.csv("tests/testthat/test-data/data_1.csv")
+
+fake_data <- function (seed,n) {
+	set.seed(seed)
+	X1 = runif(n)
+	XA = X1*runif(n)
+	X2 = runif(n)
+	XB = X2*runif(n)
+	X3 = runif(n)
+	Z1 = runif(n)
+	ZA = Z1*runif(n)
+	Z2 = runif(n)
+	ZB = Z2*runif(n)
+	Z3 = runif(n)
+	ZC = Z3*runif(n)
+	D1 = XA + 5*ZA +ZB
+	D2 = XB + 2*ZB + ZC
+	Y = XB + D1*2*runif(n) + D2*runif(n)
+	data.frame(X1,X2,X3,Z1,Z2,Z3,Y,D1,D2)
+}
+example_data <- fake_data(40,1000)
+
 ```
 
 # Cragg
@@ -22,7 +42,8 @@ An R package to implement the Cragg-Donald test for weak instruments.
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ## Overview
-Cragg is an R package to implement the Cragg-Donald [-@Cragg_1993] test for weak instruments, using critical values from Stock and Yogo [-@Stock_2005].
+The Cragg-Donald [-@Cragg_1993] test is a common way to test for weak instruments in an IV regeression but has never been implemented in R.
+The cragg package provides an implementation of the Cragg-Donald test in R and provides access to the critical values for the Cragg-Donald statistic developed in Stock and Yogo [-@Stock_2005].
 These tests quantify the degree to which weak instruments can undermine regression estimates for models with multiple endogenous variables / treatments.
 
 ### Main Features
@@ -51,8 +72,8 @@ library(cragg)
 #Cragg-Donald Test
 cragg_donald(
 	~X1+X2+X3,	#Controls
-	~D,			#Treatments
-	~Z1 + Z2,	#Instruments
+	~D1 + D2,			#Treatments
+	~Z1 + Z2 + Z3,	#Instruments
 	data =example_data
 )
 ```
@@ -64,7 +85,7 @@ Both of these decision rules are implemented.
 ```{r}
 stock_yogo_test(
 	~X1+X2+X3,	#Controls
-	~D,			#Treatments
+	~D1,			#Treatments
 	~Z1 + Z2,	#Instruments
 	B=.1,		#Maximum Allowable Size Distortion
 	size_bias="size", #Calculate critical value for size distortions

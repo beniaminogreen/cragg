@@ -7,15 +7,18 @@ An R package to implement the Cragg-Donald test for weak instruments.
 Status](https://travis-ci.com/beniaminogreen/cragg.svg?branch=main)](https://travis-ci.com/beniaminogreen/cragg)
 ![Codecov](https://img.shields.io/codecov/c/github/beniaminogreen/cragg)
 [![License: GPL
-v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-3.0.en.html)
+v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ## Overview
 
-Cragg is an R package to implement the Cragg-Donald
-([1993](#ref-Cragg_1993)) test for weak instruments, using critical
-values from Stock and Yogo ([2005](#ref-Stock_2005)). These tests
-quantify the degree to which weak instruments can undermine regression
-estimates for models with multiple endogenous variables / treatments.
+The Cragg-Donald ([1993](#ref-Cragg_1993)) test is a common way to test
+for weak instruments in an IV regeression but has never been implemented
+in R. The cragg package provides an implementation of the Cragg-Donald
+test in R and provides access to the critical values for the
+Cragg-Donald statistic developed in Stock and Yogo
+([2005](#ref-Stock_2005)). These tests quantify the degree to which weak
+instruments can undermine regression estimates for models with multiple
+endogenous variables / treatments.
 
 ### Main Features
 
@@ -49,19 +52,19 @@ library(cragg)
 #Cragg-Donald Test
 cragg_donald(
     ~X1+X2+X3,  #Controls
-    ~D,         #Treatments
-    ~Z1 + Z2,   #Instruments
+    ~D1 + D2,           #Treatments
+    ~Z1 + Z2 + Z3,  #Instruments
     data =example_data
 )
 #> Cragg-Donald test for weak instruments:
 #> 
 #>      Data:                        example_data 
 #>      Controls:                    ~X1 + X2 + X3 
-#>      Treatments:                  ~D 
-#>      Instruments:                 ~Z1 + Z2 
+#>      Treatments:                  ~D1 + D2 
+#>      Instruments:                 ~Z1 + Z2 + Z3 
 #> 
-#>      Cragg-Donald Statistic:        204.3325 
-#>      Df:                                 994
+#>      Cragg-Donald Statistic:        186.1346 
+#>      Df:                                 993
 ```
 
 `stock_yogo_test()` implements the Stock and Yogo test for weak
@@ -75,7 +78,7 @@ all of the instruments. Both of these decision rules are implemented.
 ``` r
 stock_yogo_test(
     ~X1+X2+X3,  #Controls
-    ~D,         #Treatments
+    ~D1,            #Treatments
     ~Z1 + Z2,   #Instruments
     B=.1,       #Maximum Allowable Size Distortion
     size_bias="size", #Calculate critical value for size distortions
@@ -86,17 +89,16 @@ stock_yogo_test(
 #>      Null Hypothesis:             Instruments are weak 
 #>      Alternative Hypothesis:      Instruments are not weak 
 #> 
-#> 
 #>      Data:                        example_data 
 #>      Controls:                    ~X1 + X2 + X3 
-#>      Treatments:                  ~D 
+#>      Treatments:                  ~D1 
 #>      Instruments:                 ~Z1 + Z2 
 #> 
 #>      Alpha:                             0.05 
 #>      Acceptable level of bias:    10% Wald test distortion.
 #>      Critical Value:                   19.93 
 #> 
-#>      Cragg-Donald Statistic:        204.3325 
+#>      Cragg-Donald Statistic:        360.5978 
 #>      Df:                                 994
 ```
 
