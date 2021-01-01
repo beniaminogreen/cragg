@@ -4,7 +4,7 @@
 An R package to implement the Cragg-Donald test for weak instruments.
 
 [![Build
-Status](https://travis-ci.com/beniaminogreen/cragg.svg?branch=master)](https://travis-ci.com/beniaminogreen/cragg)
+Status](https://travis-ci.com/beniaminogreen/cragg.svg?branch=main)](https://travis-ci.com/beniaminogreen/cragg)
 ![Codecov](https://img.shields.io/codecov/c/github/beniaminogreen/cragg)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-3.0.en.html)
