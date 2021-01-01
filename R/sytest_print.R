@@ -25,7 +25,7 @@ print.sy_test <-function(x,...) {
 	cat("Results of Stock and Yogo test for weak instruments:\n\n")
 	statprint("Null Hypothesis:", "Instruments are weak")
 	statprint("Alternative Hypothesis:", "Instruments are not weak")
-	cat("\n\n")
+	cat("\n")
 
 	statprint("Data:",x$data )
 	statprint("Controls:",x$X )

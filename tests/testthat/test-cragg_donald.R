@@ -1,3 +1,5 @@
+#Todo: Add more tests cases for which the Cragg-Donald stats aren't
+#	equivalent to the Wald-test statistic
 test_that("cragg_donald results are accurate", {
 	results <- read.csv("./test-data/stata_testing_data.csv", header=F)[,2]
 	for (i in seq(10)) {

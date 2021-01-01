@@ -25,6 +25,11 @@ cragg_donald <- function(X,Y,Z,data=data.frame()) {
 	Y_m <- as.matrix(stats::model.matrix(Y, data)[,-1])
 	Z_m <- as.matrix(stats::model.matrix(Z, data)[,-1])
 
+	T <- nrow(X_m)
+	K1 <- ncol(X_m)
+	K2 <- ncol(Z_m)
+	N <- ncol(Y_m)
+
 	Z_ <- cbind(X_m,Z_m)
 
 	Mx <- diag(nrow(X_m)) - X_m %*% solve(t(X_m) %*% X_m) %*%t(X_m)
@@ -35,14 +40,13 @@ cragg_donald <- function(X,Y,Z,data=data.frame()) {
 	PZT <- ZT %*% solve(t(ZT) %*% ZT ) %*% t(ZT)
 	Mz_<-diag(nrow(Z_)) - Z_ %*% solve(t(Z_) %*% Z_) %*%t(Z_)
 
-	T <- nrow(X_m)
-	K1 <- ncol(X_m)
-	K2 <- ncol(Z_m)
-	N <- ncol(Y_m)
 
 	Sig_hat_vv<-(t(Y_m) %*% Mz_ %*% Y_m) / (T - K1 - K2)
 
-	fstat_matrix <- (solve(Sig_hat_vv)**.5 %*% t(YT) %*% PZT %*% YT %*% solve(Sig_hat_vv)**.5)/K2
+	fstat_matrix <- (t(solve(expm::sqrtm(Sig_hat_vv))) %*% (t(YT) %*% PZT %*% YT) %*% solve(expm::sqrtm(Sig_hat_vv)))/K2
+	#fstat_matrix <- (t(1 / expm::sqrtm(Sig_hat_vv)) %*% (t(YT) %*% PZT %*% YT) %*% (1/expm::sqrtm(Sig_hat_vv)))/K2
+	#fstat_matrix <- (t(Sig_hat_vv^-.5) %*% (t(YT) %*% PZT %*% YT) %*% (Sig_hat_vv**-.5))/K2
+	#fstat_matrix <- (t((Sig_hat_vv)**(-.5)) %*% t(YT) %*% PZT %*% YT %*% (Sig_hat_vv)**(-.5))/K2
 
 	cd_stat <- min(eigen(fstat_matrix)$values)
 	df <- T - K1 - K2
@@ -56,4 +60,8 @@ cragg_donald <- function(X,Y,Z,data=data.frame()) {
 	class(RVAL) <- "cd_test"
 
 	RVAL
+}
+
+M_ <- function (X) {
+	diag(nrow(X)) - (X %*% solve(t(X) %*% X) %*%t(X))
 }

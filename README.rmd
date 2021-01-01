@@ -19,7 +19,7 @@ An R package to implement the Cragg-Donald test for weak instruments.
 
 [![Build Status](https://travis-ci.com/beniaminogreen/cragg.svg?branch=main)](https://travis-ci.com/beniaminogreen/cragg)
 ![Codecov](https://img.shields.io/codecov/c/github/beniaminogreen/cragg)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-3.0.en.html)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 ## Overview
 Cragg is an R package to implement the Cragg-Donald [-@Cragg_1993] test for weak instruments, using critical values from Stock and Yogo [-@Stock_2005].
