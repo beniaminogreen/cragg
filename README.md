@@ -11,14 +11,13 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 
 ## Overview
 
-The Cragg-Donald ([1993](#ref-Cragg_1993)) test is a common way to test
-for weak instruments in an IV regeression but has never been implemented
-in R. The cragg package provides an implementation of the Cragg-Donald
-test in R and provides access to the critical values for the
-Cragg-Donald statistic developed in Stock and Yogo
-([2005](#ref-Stock_2005)). These tests quantify the degree to which weak
-instruments can undermine regression estimates for models with multiple
-endogenous variables / treatments.
+The Cragg-Donald \[-@Cragg\_1993\] test is a common way to test for weak
+instruments in an IV regeression but has never been implemented in R.
+The cragg package provides an implementation of the Cragg-Donald test in
+R and provides access to the critical values for the Cragg-Donald
+statistic developed in Stock and Yogo \[-@Stock\_2005\]. These tests
+quantify the degree to which weak instruments can undermine regression
+estimates for models with multiple endogenous variables / treatments.
 
 ### Main Features
 
@@ -44,8 +43,8 @@ The cragg package has two main functions `cragg_donald()`, and
 in R. It can be thought of as the matrix-equivalent of the first-stage
 F-test for weak instruments, and is used to evaluate models with
 multiple endogenous variables. This function has been tested against the
-results from STATA’s ivreg2 package ([Baum, Schaffer, and Stillman
-2002](#ref-ivreg2)) to ensure accuracy. The syntax is show below:
+results from STATA’s ivreg2 package \[@ivreg2\] to ensure accuracy. The
+syntax is show below:
 
 ``` r
 library(cragg)
@@ -68,12 +67,12 @@ cragg_donald(
 ```
 
 `stock_yogo_test()` implements the Stock and Yogo test for weak
-instruments. The test developed by Stock and Yogo
-([2005](#ref-Stock_2005)) is a decision rule meant to ensure that weak
-instruments do not pose a problem. Stock and Yogo suggest two methods to
-select the critical values: one based on maximum allowable bias relative
-to normal OLS and another based on the maximum size of a Wald test on
-all of the instruments. Both of these decision rules are implemented.
+instruments. The test developed by Stock and Yogo \[-@Stock\_2005\] is a
+decision rule meant to ensure that weak instruments do not pose a
+problem. Stock and Yogo suggest two methods to select the critical
+values: one based on maximum allowable bias relative to normal OLS and
+another based on the maximum size of a Wald test on all of the
+instruments. Both of these decision rules are implemented.
 
 ``` r
 stock_yogo_test(

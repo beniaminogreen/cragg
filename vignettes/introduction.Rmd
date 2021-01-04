@@ -1,7 +1,6 @@
 ---
 title: "Using Cragg"
 output: rmarkdown::html_vignette
-bibliography: ../bib.bib
 vignette: >
   %\VignetteIndexEntry{Using Cragg}
   %\VignetteEngine{knitr::rmarkdown}
@@ -152,3 +151,33 @@ A Cragg-Donald statistic of .12 is significantly lower than the critical value o
 As such, there is not sufficient evidence to reject the null hypothesis that the instruments are weak in this case.
 
 # References
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-ivreg2" class="csl-entry">
+
+Baum, Christopher F, Mark E Schaffer, and Steven Stillman. 2002. “<span
+class="nocase">IVREG2: Stata module for extended instrumental
+variables/2SLS and GMM estimation</span>.” Statistical Software
+Components, Boston College Department of Economics.
+
+</div>
+
+<div id="ref-Cragg_1993" class="csl-entry">
+
+Cragg, John G., and Stephen G. Donald. 1993. “Testing Identifiability
+and Specification in Instrumental Variable Models.” *Econometric Theory*
+9 (2): 222–40. <https://doi.org/10.1017/s0266466600007519>.
+
+</div>
+
+<div id="ref-Stock_2005" class="csl-entry">
+
+Stock, James H., and Motohiro Yogo. 2005. “Testing for Weak Instruments
+in Linear IV Regression.” In *Identification and Inference for
+Econometric Models*, 80–108. Cambridge University Press.
+<https://doi.org/10.1017/cbo9780511614491.006>.
+
+</div>
+
+</div>
