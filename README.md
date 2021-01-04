@@ -15,9 +15,9 @@ The Cragg-Donald (1993) test is a common way to test for weak
 instruments in an IV regeression but has never been implemented in R.
 The cragg package provides an implementation of the Cragg-Donald test in
 R and provides access to the critical values for the Cragg-Donald
-statistic developed in Stock and Yogo (Stock\_2005). These tests
-quantify the degree to which weak instruments can undermine regression
-estimates for models with multiple endogenous variables / treatments.
+statistic developed in Stock and Yogo (Stock 2005). These tests quantify
+the degree to which weak instruments can undermine regression estimates
+for models with multiple endogenous variables / treatments.
 
 ### Main Features
 
