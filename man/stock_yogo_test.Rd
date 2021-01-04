@@ -4,12 +4,12 @@
 \alias{stock_yogo_test}
 \title{Perform the Stock and Yogo test for weak instruments}
 \usage{
-stock_yogo_test(X, Y, Z, data, B = 0.05, size_bias = "bias")
+stock_yogo_test(X, D, Z, data, B = 0.05, size_bias = "bias")
 }
 \arguments{
 \item{X}{(formula). A one-sided formula of control variables.}
 
-\item{Y}{(formula). A one-sided formula of endoenous variables (treatments)}
+\item{D}{(formula). A one-sided formula of endoenous variables (treatments)}
 
 \item{Z}{(formula). A one-sided formula of instruments}
 

@@ -4,12 +4,12 @@
 \alias{cragg_donald}
 \title{Calculate the Cragg-Donald statistic for a given model.}
 \usage{
-cragg_donald(X, Y, Z, data = data.frame())
+cragg_donald(X, D, Z, data = data.frame())
 }
 \arguments{
 \item{X}{(formula). A one-sided formula of control variables.}
 
-\item{Y}{(formula). A one-sided formula of endoenous variables (treatments)}
+\item{D}{(formula). A one-sided formula of endoenous variables (treatments)}
 
 \item{Z}{(formula). A one-sided formula of instruments}
 

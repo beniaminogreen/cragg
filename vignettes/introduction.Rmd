@@ -14,63 +14,96 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-
+## Introduction
 This vignette teaches you how to use the Cragg package to perform the Cragg-Donald [-@Cragg_1993] and Stock and Yogo [-@Stock_2005] tests for weak instruments.
+Skip to "Testing for Weak Instruments" if you would just like to see example syntax and interpretation.
+
+## Notation
 
 I use the following notation to describe the instrumental variables model:
-$$ Y_i = \beta_0 + \beta_1D_{1i} + \beta_2D_{2i} + \beta_3X_{3i} + \varepsilon_i $$
+$$ Y_i = \beta_0 + \beta_1D_{1i} + \beta_2D_{2i} + \beta_3X_{1i} +\beta_4X_{2i} + \varepsilon_i $$
 
 Where
 
 * $Y$ is the outcome of interest / dependent variable
 
-* $X_1$ is a control variable
+* $X_1$ and $X_2$ are control variables
 
-* $D_1$ and $D_2$ are the endogenous variables / treatements, and are instrumented by $Z_1$ , $Z_2$ , $Z_3$
+* $D_1$ and $D_2$ are the endogenous variables / treatments and are instrumented by $Z_1$ , $Z_2$ , $Z_3$, and $Z_4$
 
-An assumption of instrumental variables alanalysis is that the instruments have a strong influence on the treatments / endogenous variables we are examining. If this is not the case, then IV estimators become unreliable [@Andrews_2019].
+An assumption of instrumental variables ala analysis is that the instruments have a strong influence on the treatments / endogenous variables we are examining. If this is not the case, then IV estimators become unreliable [@Andrews_2019].
 
 
+## Generating the Data
+In this vignette I will show the output of the functions in the cragg package when instruments are both strong and weak. To do this, I artificially create a pool of data in which the instruments strongly influence the treatment variables and another dataset which is just random data.
+
+I first create a covariance matrix for a situation in which the instruments ($Z_1$ , $Z_2$ , $Z_3$, and $Z_4$) strongly influence the treatments ($D_1$ and $D_2$)
 ```{r}
-library(cragg)
-library(MASS)
-set.seed(42)
-
-mu <- rep(0,8)
-stddev <- rep(1,8)
-
-cor_mat <- matrix(
+strong_cov_mat <- matrix(
 	c(
-		#Y       X1       X2      D1       D2       Z1       Z2       Z3
-		3.2244,  0.0333,  0.0870, 1.4101,  0.2933,  0.2248,  0.0552,  0.0313,	#Y
-		0.0333,  0.0832, -0.0029, 0.0429,  0.0000,  0.0025,  0.0009, -0.0004,	#X1
-		0.0870, -0.0029,  0.0848, 0.0056,  0.0450,  0.0029, -0.0009,  0.0028,	#X2
-		1.4101,  0.0429,  0.0056, 1.3719,  0.1148,  0.2198,  0.0519,  0.0070,	#D1
-		0.2933,  0.0000,  0.0450, 0.1148,  0.3067, -0.0020,  0.0867,  0.0480,	#D2
-		0.2248,  0.0025,  0.0029, 0.2198, -0.0020,  0.0851,  0.0005, -0.0043,	#Z1
-		0.0552,  0.0009, -0.0009, 0.0519,  0.0867,  0.0005,  0.0840,  0.0074,	#Z2
-		0.0313, -0.0004,  0.0028, 0.0070,  0.0480, -0.0043,  0.0074,  0.0831	#Z3
-	),
-                 ncol = 8)
+		 #Y      #X1      #X2      #D1      #D2      #Z1      #Z2      #Z3      #Z4
+		 3.8635,  0.0387,  0.0922,  1.4810,  0.4778,  0.2024,  0.1085,  0.0850, -0.0368,	#Y
+		 0.0387,  0.0832, -0.0029,  0.0415, -0.0014,  0.0025,  0.0009, -0.0004, -0.0058,	#X1
+		 0.0922, -0.0029,  0.0848,  0.0068,  0.0462,  0.0029, -0.0009,  0.0028,  0.0027,	#X2
+		 1.4810,  0.0415,  0.0068,  1.4345,  0.1949,  0.2184,  0.0562,  0.0464, -0.0155,	#D1
+		 0.4778, -0.0014,  0.0462,  0.1949,  0.4042, -0.0034,  0.0909,  0.0875, -0.0079,	#D2
+		 0.2024,  0.0025,  0.0029,  0.2184, -0.0034,  0.0851,  0.0005, -0.0043,  0.0000,	#Z1
+		 0.1085,  0.0009, -0.0009,  0.0562,  0.0909,  0.0005,  0.0840,  0.0074, -0.0096,	#Z2
+		 0.0850, -0.0004,  0.0028,  0.0464,  0.0875, -0.0043,  0.0074,  0.0831, -0.0005,	#Z3
+		-0.0368, -0.0058,  0.0027, -0.0155, -0.0079,  0.0000, -0.0096, -0.0005,  0.0827		#Z4
+		),
+                 ncol = 9)
+```
 
-cov_mat <- stddev %*% t(stddev) * cor_mat
-
-strong_instrument_data <- as.data.frame(mvrnorm(n = 250, mu = mu, Sigma = cov_mat, empirical = FALSE))
-names(strong_instrument_data) <- c("Y", "X1", "X2","D1","D2","Z1","Z2","Z3")
+I then a covariance matrix for a situation in which the instruments ($Z_1$ , $Z_2$ , $Z_3$, and $Z_4$) have no influence on the treatments ($D_1$ and $D_2$) - this covariance matrix calculated from a set of random variables.
+```{r}
+weak_cov_mat <- matrix(
+	c(
+		# Y        X1       X2       D1       D2       Z1       Z2       Z3       Z4
+		  0.0795,  0.0009, -0.0003, -0.0022,  0.0053,  0.0003, -0.0009,  0.0002,  0.0010,	#Y
+		  0.0009,  0.0832, -0.0029,  0.0020, -0.0036,  0.0025,  0.0009, -0.0004, -0.0058,	#X1
+		 -0.0003, -0.0029,  0.0848,  0.0035,  0.0040,  0.0029, -0.0009,  0.0028,  0.0027,	#X2
+		 -0.0022,  0.0020,  0.0035,  0.0866, -0.0027,  0.0001,  0.0030, -0.0013, -0.0041,	#D1
+		  0.0053, -0.0036,  0.0040, -0.0027,  0.0840, -0.0037,  0.0020, -0.0002, -0.0068,	#D2
+		  0.0003,  0.0025,  0.0029,  0.0001, -0.0037,  0.0851,  0.0005, -0.0043,  0.0000,	#Z1
+		 -0.0009,  0.0009, -0.0009,  0.0030,  0.0020,  0.0005,  0.0840,  0.0074, -0.0096,	#Z2
+		  0.0002, -0.0004,  0.0028, -0.0013, -0.0002, -0.0043,  0.0074,  0.0831, -0.0005,	#Z3
+		  0.0010, -0.0058,  0.0027, -0.0041, -0.0068,  0.0000, -0.0096, -0.0005,  0.0827	#Z4
+		),
+                 ncol = 9)
 
 ```
 
+I then use these covariance matrices to generate a dataset with strong instruments, `strong_instrument_data`, and a dataset with completely ineffectual instruments, `weak_instrument_data`.
+
 ```{r}
+library(MASS)
+set.seed(42)
+
+mu <- rep(0,9)
+stddev <- rep(1,9)
+strong_instrument_data <- as.data.frame(mvrnorm(n = 250, mu = mu, Sigma = strong_cov_mat, empirical = FALSE))
+names(strong_instrument_data) <- c("Y", "X1", "X2","D1","D2","Z1","Z2","Z3","Z4")
+weak_instrument_data <- as.data.frame(mvrnorm(n = 250, mu = mu, Sigma = weak_cov_mat, empirical = FALSE))
+names(weak_instrument_data) <- c("Y", "X1", "X2","D1","D2","Z1","Z2","Z3","Z4")
+
+```
+
+## Testing for Weak Instruments
+```{r}
+library(cragg)
 cragg_donald(X=~X1 + X2, # Control Variables
-			 Y=~D1 + D2, # Treatments
-			 Z=~Z1+Z2+Z3,# Instruments
+			 D=~D1 + D2, # Treatments
+			 Z=~Z1+Z2+Z3+Z4,# Instruments
 			 data = strong_instrument_data)
 ```
 
 ```{r}
-stock_yogo_test(X=~X1 + X2, # Control Variables
-			 Y=~D1 + D2, # Treatments
-			 Z=~Z1+Z2+Z3,# Instruments
+stock_yogo_test(X=~X1+X2 , # Control Variables
+			 D=~D1 + D2 , # Treatments
+			 Z=~Z1+Z2+Z3+Z4 ,# Instruments
+			 size_bias="bias",
+			 B=.05,
 			 data = strong_instrument_data)
 ```
 

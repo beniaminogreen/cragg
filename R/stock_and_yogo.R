@@ -48,6 +48,9 @@ stock_yogo_reccomender <- function(K,N,B,size_bias) {
 			warning("Warning: critical values for size are only available up to N=3 instruments. Using N=3")
 			N <- 3
 		}
+		if (K<=(N+1)){
+			stop("Error: K must be greater than N+1 for this operation")
+		}
 	} else {
 		sy_table <- sy_size
 		B %in% c(.1,.15,.2,.25) ||
@@ -56,9 +59,18 @@ stock_yogo_reccomender <- function(K,N,B,size_bias) {
 			warning("Warning: critical values for size are only available up to N=2 instruments. Using N=2.")
 			N<-2
 		}
+		if (K<N){
+			stop("Error: K must be greater than or equal to N for this operation")
+		}
 	}
+
 
 	column_name = paste0("B",B)
 	row <- which(sy_table$K == K & sy_table$N==N)
-	sy_table[[column_name]][row]
+
+	crit_val <- sy_table[[column_name]][row]
+	if (is.null(crit_val)) {
+		stop("crit_val not found")
+	}
+	return(crit_val)
 }
