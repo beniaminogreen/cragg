@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 ## Introduction
-This vignette teaches you how to use the Cragg package to perform the Cragg-Donald [-@Cragg_1993] and Stock and Yogo [-@Stock_2005] tests for weak instruments.
+This vignette teaches you how to use the Cragg package to perform the Cragg-Donald (1993) and Stock and Yogo (2005) tests for weak instruments.
 Skip to "Testing for Weak Instruments" if you would just like to see example syntax and interpretation.
 
 ## Notation
@@ -30,7 +30,7 @@ Where
 
 * $D_1$ and $D_2$ are the endogenous variables / treatments and are instrumented by $Z_1$ , $Z_2$ , $Z_3$, and $Z_4$
 
-An assumption of instrumental variables ala analysis is that the instruments have a strong influence on the treatments / endogenous variables we are examining. If this is not the case, then IV estimators become unreliable [@Andrews_2019].
+An assumption of instrumental variables ala analysis is that the instruments have a strong influence on the treatments / endogenous variables we are examining. If this is not the case, then IV estimators become unreliable.
 
 
 ## Generating the Data
@@ -92,9 +92,9 @@ names(weak_instrument_data) <- c("Y", "X1", "X2","D1","D2","Z1","Z2","Z3","Z4")
 With the datasets generated, we can now move on to testing for the presence of weak instruments.
 The cragg package offers two main functions to do this: `cragg_donald()`, and `stock_yogo_test`.
 
-`cragg_donald()` implements the calculation for the Cragg-Donald statistic [-@Cragg_1993], which can be thought of as the matrix-analogue of the first stage F-statistic.
+`cragg_donald()` implements the calculation for the Cragg-Donald statistic (1993), which can be thought of as the matrix-analogue of the first stage F-statistic.
 
-`stock_yogo_test()` implements the Stock and Yogo [-@Stock_2005] test for weak instruments. The Stock and Yogo test uses the Cragg-Daniels statistic and a set of precalculated critical values to ensure that the bias is less than 5, 10, or 30 percent  of the worst-case error from OLS [@Andrews_2019, p15].
+`stock_yogo_test()` implements the Stock and Yogo (2005) test for weak instruments. The Stock and Yogo test uses the Cragg-Daniels statistic and a set of precalculated critical values to ensure that the bias is less than 5, 10, or 30 percent  of the worst-case error from OLS.
 
 ### Cragg-Donald Statistic
 I demonstrate how to calculate the Cragg-Donald statistic for a specific model using the `cragg_donald()` function below.
@@ -112,7 +112,7 @@ cragg_donald(X=~X1 + X2, # Control Variables
 			 data = strong_instrument_data)
 ```
 This test gives a large CD-statistic which is safely large enough to conclude the instruments are strong.
-However, A more substantial claim can be made by using the critical values for this test created by Stock and Yogo [@Stock_2005].
+However, A more substantial claim can be made by using the critical values for this test created by Stock and Yogo (2005).
 The process for using the stock and Yogo test is described below.
 
 ### The Stock and Yogo Test
@@ -153,15 +153,6 @@ As such, there is not sufficient evidence to reject the null hypothesis that the
 # References
 
 <div id="refs" class="references csl-bib-body hanging-indent">
-
-<div id="ref-ivreg2" class="csl-entry">
-
-Baum, Christopher F, Mark E Schaffer, and Steven Stillman. 2002. “<span
-class="nocase">IVREG2: Stata module for extended instrumental
-variables/2SLS and GMM estimation</span>.” Statistical Software
-Components, Boston College Department of Economics.
-
-</div>
 
 <div id="ref-Cragg_1993" class="csl-entry">
 
