@@ -12,7 +12,7 @@ print.cd_test <- function (x,...) {
 
 	statprint("Data:",x$data )
 	statprint("Controls:",x$X )
-	statprint("Treatments:",x$Y )
+	statprint("Treatments:",x$D )
 	statprint("Instruments:",x$Z )
 	cat("\n")
 	statprint("Cragg-Donald Statistic:",x$cd_stat )
@@ -29,7 +29,7 @@ print.sy_test <-function(x,...) {
 
 	statprint("Data:",x$data )
 	statprint("Controls:",x$X )
-	statprint("Treatments:",x$Y )
+	statprint("Treatments:",x$D )
 	statprint("Instruments:",x$Z )
 	cat("\n")
 

@@ -1,8 +1,9 @@
 ---
-title: "Using cragg"
+title: "Using Cragg"
 output: rmarkdown::html_vignette
+bibliography: ../bib.bib
 vignette: >
-  %\VignetteIndexEntry{introduction}
+  %\VignetteIndexEntry{Using Cragg}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,6 +15,64 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+This vignette teaches you how to use the Cragg package to perform the Cragg-Donald [-@Cragg_1993] and Stock and Yogo [-@Stock_2005] tests for weak instruments.
+
+I use the following notation to describe the instrumental variables model:
+$$ Y_i = \beta_0 + \beta_1D_{1i} + \beta_2D_{2i} + \beta_3X_{3i} + \varepsilon_i $$
+
+Where
+
+* $Y$ is the outcome of interest / dependent variable
+
+* $X_1$ is a control variable
+
+* $D_1$ and $D_2$ are the endogenous variables / treatements, and are instrumented by $Z_1$ , $Z_2$ , $Z_3$
+
+An assumption of instrumental variables alanalysis is that the instruments have a strong influence on the treatments / endogenous variables we are examining. If this is not the case, then IV estimators become unreliable [@Andrews_2019].
+
+
+```{r}
 library(cragg)
+library(MASS)
+set.seed(42)
+
+mu <- rep(0,8)
+stddev <- rep(1,8)
+
+cor_mat <- matrix(
+	c(
+		#Y       X1       X2      D1       D2       Z1       Z2       Z3
+		3.2244,  0.0333,  0.0870, 1.4101,  0.2933,  0.2248,  0.0552,  0.0313,	#Y
+		0.0333,  0.0832, -0.0029, 0.0429,  0.0000,  0.0025,  0.0009, -0.0004,	#X1
+		0.0870, -0.0029,  0.0848, 0.0056,  0.0450,  0.0029, -0.0009,  0.0028,	#X2
+		1.4101,  0.0429,  0.0056, 1.3719,  0.1148,  0.2198,  0.0519,  0.0070,	#D1
+		0.2933,  0.0000,  0.0450, 0.1148,  0.3067, -0.0020,  0.0867,  0.0480,	#D2
+		0.2248,  0.0025,  0.0029, 0.2198, -0.0020,  0.0851,  0.0005, -0.0043,	#Z1
+		0.0552,  0.0009, -0.0009, 0.0519,  0.0867,  0.0005,  0.0840,  0.0074,	#Z2
+		0.0313, -0.0004,  0.0028, 0.0070,  0.0480, -0.0043,  0.0074,  0.0831	#Z3
+	),
+                 ncol = 8)
+
+cov_mat <- stddev %*% t(stddev) * cor_mat
+
+strong_instrument_data <- as.data.frame(mvrnorm(n = 250, mu = mu, Sigma = cov_mat, empirical = FALSE))
+names(strong_instrument_data) <- c("Y", "X1", "X2","D1","D2","Z1","Z2","Z3")
+
 ```
+
+```{r}
+cragg_donald(X=~X1 + X2, # Control Variables
+			 Y=~D1 + D2, # Treatments
+			 Z=~Z1+Z2+Z3,# Instruments
+			 data = strong_instrument_data)
+```
+
+```{r}
+stock_yogo_test(X=~X1 + X2, # Control Variables
+			 Y=~D1 + D2, # Treatments
+			 Z=~Z1+Z2+Z3,# Instruments
+			 data = strong_instrument_data)
+```
+
+# References
+

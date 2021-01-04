@@ -1,7 +1,7 @@
 #' Perform the Stock and Yogo test for weak instruments
 #'
 #' @param X (formula). A one-sided formula of control variables.
-#' @param Y (formula). A one-sided formula of endoenous variables (treatments)
+#' @param D (formula). A one-sided formula of endoenous variables (treatments)
 #' @param Z (formula). A one-sided formula of instruments
 #' @param data (dataframe). An optional dataframe, list, or environment
 #' containing the variables used in the model. As with many of the base R
@@ -14,8 +14,8 @@
 #' @return (float) the recommended critical value.
 #'
 #' @export
-stock_yogo_test <- function(X,Y,Z,data,B=.05,size_bias="bias"){
-	cd <- cragg_donald(X,Y,Z,data)
+stock_yogo_test <- function(X,D,Z,data,B=.05,size_bias="bias"){
+	cd <- cragg_donald(X,D,Z,data)
 	RVAL <- c(cd, list(B=B, crit_val = stock_yogo_reccomender(K=cd$K2,N=cd$N,B,size_bias),
 	size_bias = size_bias))
 	RVAL$data <- deparse(substitute(data))
