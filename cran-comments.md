@@ -4,7 +4,11 @@
 * Win Builder, Devel and Release
 
 ## R CMD check results
-There were no ERRORs, WARNINGs
+There were no ERRORs or WARNINGs
 
-one NOTEs:
-This is a first-submission
+There were two NOTEs:
+* This is a first-submission
+* Possibly mis-spelled words in DESCRIPTION: Cragg (10:25), Yogo (10:52).
+	These are both names.
+
+Thanks for your help!

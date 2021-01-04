@@ -30,7 +30,7 @@ Where
 
 * $D_1$ and $D_2$ are the endogenous variables / treatments and are instrumented by $Z_1$ , $Z_2$ , $Z_3$, and $Z_4$
 
-An assumption of instrumental variables ala analysis is that the instruments have a strong influence on the treatments / endogenous variables we are examining. If this is not the case, then IV estimators become unreliable.
+An assumption of instrumental variables analysis is that the instruments have a strong influence on the treatments / endogenous variables we are examining. If this is not the case, then IV estimators become unreliable.
 
 
 ## Generating the Data

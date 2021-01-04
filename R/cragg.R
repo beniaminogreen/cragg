@@ -1,7 +1,7 @@
 #' Calculate the Cragg-Donald statistic for a given model.
 #'
 #' @param X (formula). A one-sided formula of control variables.
-#' @param D (formula). A one-sided formula of endoenous variables (treatments)
+#' @param D (formula). A one-sided formula of endogenous variables (treatments)
 #' @param Z (formula). A one-sided formula of instruments
 #' @param data (dataframe). An optional dataframe, list, or environment
 #' containing the variables used in the model. As with many of the base R

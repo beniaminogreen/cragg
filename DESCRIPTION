@@ -1,13 +1,13 @@
 Package: cragg
-Title: Tests For Weak Instruments in R
+Title: Tests for Weak Instruments in R
 Version: 0.0.1
 Authors@R:
     person(given = "Beniamino",
            family = "Green",
            role = c("aut", "cre"),
-           email = "zctqbgr@ucl.ac.uk",
+           email = "ben@greendalba.com",
            )
-Description: Implements cragg-donald test for weak instruments in R.
+Description: Implements Cragg-Donald and Stock and Yogo tests for weak instruments in R.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

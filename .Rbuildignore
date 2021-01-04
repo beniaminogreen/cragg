@@ -1,6 +1,6 @@
 ^LICENSE\.md$
 ^.travis\.yml$
-^.codecov\.yml$
+^codecov\.yml$
 ^cran-comments.md$
 ^README.html$
 ^README.rmd$
