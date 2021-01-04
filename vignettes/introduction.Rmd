@@ -82,14 +82,29 @@ set.seed(42)
 
 mu <- rep(0,9)
 stddev <- rep(1,9)
-strong_instrument_data <- as.data.frame(mvrnorm(n = 250, mu = mu, Sigma = strong_cov_mat, empirical = FALSE))
+strong_instrument_data <- as.data.frame(MASS::mvrnorm(n = 250, mu = mu, Sigma = strong_cov_mat, empirical = FALSE))
 names(strong_instrument_data) <- c("Y", "X1", "X2","D1","D2","Z1","Z2","Z3","Z4")
-weak_instrument_data <- as.data.frame(mvrnorm(n = 250, mu = mu, Sigma = weak_cov_mat, empirical = FALSE))
+weak_instrument_data <- as.data.frame(MASS::mvrnorm(n = 250, mu = mu, Sigma = weak_cov_mat, empirical = FALSE))
 names(weak_instrument_data) <- c("Y", "X1", "X2","D1","D2","Z1","Z2","Z3","Z4")
 
 ```
 
 ## Testing for Weak Instruments
+With the datasets generated, we can now move on to testing for the presence of weak instruments.
+The cragg package offers two main functions to do this: `cragg_donald()`, and `stock_yogo_test`.
+
+`cragg_donald()` implements the calculation for the Cragg-Donald statistic [-@Cragg_1993], which can be thought of as the matrix-analogue of the first stage F-statistic.
+
+`stock_yogo_test()` implements the Stock and Yogo [-@Stock_2005] test for weak instruments. The Stock and Yogo test uses the Cragg-Daniels statistic and a set of precalculated critical values to ensure that the bias is less than 5, 10, or 30 percent  of the worst-case error from OLS [@Andrews_2019, p15].
+
+### Cragg-Donald Statistic
+I demonstrate how to calculate the Cragg-Donald statistic for a specific model using the `cragg_donald()` function below.
+The function takes three right-sided formulas as arguments for the control, treatment and instruments. These can be given as either formulas of variable names, or as vectors.
+The function takes an additional data argument which can be a data frame, list, or environment where the variables can be found.
+If the variables cannot be found in the object given, the function may look upwards to see if it can find the objects in the global environment, but this is not recommended and is not guaranteed to work.
+
+Here, I calculate the Cragg-Donald statistic for the dataset with strong instruments.
+I pass the function the names of the control, treatment, and instrumental variables; and the name of the dataframe where the variables can be found.
 ```{r}
 library(cragg)
 cragg_donald(X=~X1 + X2, # Control Variables
@@ -97,15 +112,43 @@ cragg_donald(X=~X1 + X2, # Control Variables
 			 Z=~Z1+Z2+Z3+Z4,# Instruments
 			 data = strong_instrument_data)
 ```
+This test gives a large CD-statistic which is safely large enough to conclude the instruments are strong.
+However, A more substantial claim can be made by using the critical values for this test created by Stock and Yogo [@Stock_2005].
+The process for using the stock and Yogo test is described below.
+
+### The Stock and Yogo Test
+The Stock and Yogo test provides critical values for the Cragg-Daniels statistic.
+These tests define weak instruments as when the bias from TSLS is greater than 5, 10, 20 or 30% of the bias of OLS, depending on the acceptable bias threshold [Andrews_2019].
+The tests then reject if the 95% confidence interval excludes this possibility and fail to reject if the potential for this level of bias is not excluded by the confidence interval.
+
+The null hypothesis ($H_0$) is that the instruments are weak, and the alternative hypothesis is that they are not ($H_1$)
+
+To calculate this test using the cragg package, the `stock_yogo_test()` function is used.
+The interface is the same as that for the `cragg_donald` function described above, but it can take an optional parameter to specify the largest acceptable level of bias.
+The function can also take a `size_bias` parameter which can be set from the default `bias` option to `size` in order to use an alternative definition for bias based on the size of the largest allowable t-test distortion.
+
+I run this test on the dataset with the strong instruments and obtain the same Cragg-Donald statistic as above - 40.76.
+```{r}
+stock_yogo_test(X=~X1+X2 , # Control Variables
+			 D=~D1 + D2 , # Treatments
+			 Z=~Z1+Z2+Z3+Z4 ,# Instruments
+			 size_bias="bias", #Default
+			 B=.05, #Default
+			 data = strong_instrument_data)
+```
+We can see that this is significantly higher than the critical value of 11.04, so we have sufficient statistical evidence to reject the null hypothesis that instruments are weak.
+
+As a demonstration, I run this test on the data with completely weak instruments.
 
 ```{r}
 stock_yogo_test(X=~X1+X2 , # Control Variables
 			 D=~D1 + D2 , # Treatments
 			 Z=~Z1+Z2+Z3+Z4 ,# Instruments
-			 size_bias="bias",
-			 B=.05,
-			 data = strong_instrument_data)
+			 size_bias="bias", #Default
+			 B=.05, #Default
+			 data = weak_instrument_data)
 ```
+A Cragg-Donald statistic of .12 is significantly lower than the critical value of 11.04.
+As such, there is not sufficient evidence to reject the null hypothesis that the instruments are weak in this case.
 
 # References
-

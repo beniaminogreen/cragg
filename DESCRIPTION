@@ -18,6 +18,7 @@ Imports:
 Suggests:
     testthat (>= 3.0.0),
     knitr,
+    MASS,
     rmarkdown
 Config/testthat/edition: 3
 Depends:
