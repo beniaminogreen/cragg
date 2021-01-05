@@ -1,3 +1,11 @@
+## Resubmission Notes:
+This is a resubmission. In this version I have:
+
+* Added examples to roxygen2 documentation / .md files
+
+* Added DOI Links to the description for the methods used.
+
+
 ## Test environments
 * Local Arch Linux Install Devel, and Release
 * Ubuntu 16.04 (travis-ci), Relase

@@ -10,14 +10,12 @@
 #'
 #' @return (cd_test) results object of class "cd_test"
 #'
-#'
-# cragg_donald(
-#		X = ~ control_1 + control_2 + control_3,
-#		D = ~ treatment_1 + treatment_2,
-#		Z = ~ instrument_1 + instrument_2 + instrument_3,
-#		data = dataframe
-# )
-#
+#' @examples
+#' #Obtain the Cragg-Donald statistic for a model that instruments
+#' #Sepal Width on Petal Length, Petal Width, and Species, while controlling
+#' #for Sepal.Length (a toy example).
+#' cragg_donald(X=~Sepal.Length, D=~Sepal.Width,
+#'				Z=~Petal.Length + Petal.Width + Species, data = iris)
 #' @export
 cragg_donald <- function(X,D,Z,data=data.frame()) {
 

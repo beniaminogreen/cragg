@@ -10,8 +10,17 @@
 #' @param B One of \[.05, .1, .15, .2, .25, .3\]. The maximum size of allowable bias relative
 #' @param size_bias Either "bias" or "size". Whether to use a critical
 #' value based on the maximum allowable bias relative to regular OLS (bias), or maximum
-#' Wald test size distortion.
-#' @return (float) the recommended critical value.
+#' Wald test size distortion (size).
+#' @return (sy_test) the results of the stock and yogo test.
+#'
+#' @examples
+#' #Perform the Stock and Yogo test on a model that instruments
+#' #Sepal Width on Petal Length, Petal Width, and Species, while controlling
+#' #for Sepal.Length (a toy example).
+#'
+#' stock_yogo_test(X=~Sepal.Length, D=~Sepal.Width,
+#'		Z=~Petal.Length + Petal.Width + Species,
+#'		size_bias="bias",data = iris)
 #'
 #' @export
 stock_yogo_test <- function(X,D,Z,data,B=.05,size_bias="bias"){
@@ -34,6 +43,12 @@ stock_yogo_test <- function(X,D,Z,data,B=.05,size_bias="bias"){
 #' value based on the maximum allowable bias relative to regular OLS (bias), or maximum
 #' Wald test size distortion.
 #' @return (float) the recommended critical value.
+#'
+#' @examples
+#' #To reccomend a critical value for a test with 2 endogenous variables
+#' #and four instruments based on a 5% maximum allowable bias relative to OLS
+#'
+#' stock_yogo_reccomender(4,2,.05,"bias")
 #'
 #' @export
 stock_yogo_reccomender <- function(K,N,B,size_bias) {

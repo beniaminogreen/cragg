@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "ben@greendalba.com",
            )
-Description: Implements Cragg-Donald and Stock and Yogo tests for weak instruments in R.
+Description: Implements Cragg-Donald (1993) <doi:10.1017/S0266466600007519> and Stock and Yogo (2005) <doi:10.1017/CBO9780511614491.006> tests for weak instruments in R.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
