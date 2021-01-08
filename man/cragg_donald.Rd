@@ -9,7 +9,7 @@ cragg_donald(X, D, Z, data = data.frame())
 \arguments{
 \item{X}{(formula). A one-sided formula of control variables.}
 
-\item{D}{(formula). A one-sided formula of endoenous variables (treatments)}
+\item{D}{(formula). A one-sided formula of endogenous variables (treatments)}
 
 \item{Z}{(formula). A one-sided formula of instruments}
 
@@ -23,4 +23,11 @@ the environment cragg_donald() was called.}
 }
 \description{
 Calculate the Cragg-Donald statistic for a given model.
+}
+\examples{
+#Obtain the Cragg-Donald statistic for a model that instruments
+#Sepal Width on Petal Length, Petal Width, and Species, while controlling
+#for Sepal.Length (a toy example).
+cragg_donald(X=~Sepal.Length, D=~Sepal.Width,
+			Z=~Petal.Length + Petal.Width + Species, data = iris)
 }

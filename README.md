@@ -30,8 +30,8 @@ for models with multiple endogenous variables / treatments.
 ## Installation
 
 ``` r
-#install.packages("devtools")
-devtools::install_github("beniaminogreen/cragg")
+install.packages("cragg")
+library(cragg)
 ```
 
 ## Usage

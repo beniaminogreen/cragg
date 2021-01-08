@@ -9,7 +9,7 @@ stock_yogo_test(X, D, Z, data, B = 0.05, size_bias = "bias")
 \arguments{
 \item{X}{(formula). A one-sided formula of control variables.}
 
-\item{D}{(formula). A one-sided formula of endoenous variables (treatments)}
+\item{D}{(formula). A one-sided formula of endogenous variables (treatments)}
 
 \item{Z}{(formula). A one-sided formula of instruments}
 
@@ -22,11 +22,21 @@ the environment cragg_donald() was called.}
 
 \item{size_bias}{Either "bias" or "size". Whether to use a critical
 value based on the maximum allowable bias relative to regular OLS (bias), or maximum
-Wald test size distortion.}
+Wald test size distortion (size).}
 }
 \value{
-(float) the recommended critical value.
+(sy_test) the results of the stock and yogo test.
 }
 \description{
 Perform the Stock and Yogo test for weak instruments
+}
+\examples{
+#Perform the Stock and Yogo test on a model that instruments
+#Sepal Width on Petal Length, Petal Width, and Species, while controlling
+#for Sepal.Length (a toy example).
+
+stock_yogo_test(X=~Sepal.Length, D=~Sepal.Width,
+	Z=~Petal.Length + Petal.Width + Species,
+	size_bias="bias",data = iris)
+
 }

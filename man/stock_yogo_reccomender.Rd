@@ -24,3 +24,10 @@ Wald test size distortion.}
 \description{
 Recommend a critical value for the Cragg-Donald test given a maximum allowable bias/size distortion
 }
+\examples{
+#To reccomend a critical value for a test with 2 endogenous variables
+#and four instruments based on a 5\% maximum allowable bias relative to OLS
+
+stock_yogo_reccomender(4,2,.05,"bias")
+
+}

@@ -54,8 +54,8 @@ These tests quantify the degree to which weak instruments can undermine regressi
 
 ## Installation
 ```{r, eval = FALSE}
-#install.packages("devtools")
-devtools::install_github("beniaminogreen/cragg")
+install.packages("cragg")
+library(cragg)
 ```
 
 ## Usage
