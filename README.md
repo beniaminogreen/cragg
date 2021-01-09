@@ -8,6 +8,8 @@ Status](https://travis-ci.com/beniaminogreen/cragg.svg?branch=main)](https://tra
 ![Codecov](https://img.shields.io/codecov/c/github/beniaminogreen/cragg)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+![CRAN](https://www.r-pkg.org/badges/version/cragg)
+![Downloads](https://cranlogs.r-pkg.org/badges/cragg)
 
 ## Overview
 
