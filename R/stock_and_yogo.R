@@ -63,8 +63,8 @@ stock_yogo_reccomender <- function(K,N,B,size_bias) {
 			warning("Warning: critical values for size are only available up to N=3 instruments. Using N=3")
 			N <- 3
 		}
-		if (K<=(N+1)){
-			stop("Error: K must be greater than N+1 for this operation")
+		if ( !K >= N ){
+			stop("Error: K must be greater than or equal to N for this operation")
 		}
 	} else {
 		sy_table <- sy_size
